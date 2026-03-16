@@ -222,24 +222,32 @@
         }
     }
 
-    function confirmChoice() {
-        const val = document.getElementById('emotion-input').value;
-        document.getElementById('choice-container').style.display = 'none';
-        if (val > 50) {
-            joudAvatar.src = "Joud-happy.png"; // FIXED CAPITAL J
-            joudAvatar.style.filter = "brightness(100%)";
-            myAvatar.style.filter = "brightness(100%)";
-            typeWriter("Phew... I was worried there for a moment! 😅", 0, () => {
-                setTimeout(() => {
-                    typeWriter("Please choose a date... or you can leave it to me.");
-                    document.getElementById('calendar-container').style.display = 'block';
-                }, 1500);
-            });
-        } else {
-            bgMusic.pause(); overMusic.play();
-            document.getElementById('game-over-screen').style.display = 'flex';
-        }
+    function confirmDate(isAuto) {
+    // 1. Capture the value
+    const dateInput = document.getElementById('date-input');
+    let dateVal = isAuto ? "Your choice! 😉" : dateInput.value;
+
+    // 2. Validate (if they didn't pick a date and didn't click "You Choose")
+    if (!isAuto && !dateVal) {
+        alert("Please pick a date or click 'You Choose!'");
+        return;
     }
+
+    // 3. Store the value globally so finishQuest can see it
+    window.chosenDate = dateVal;
+
+    // 4. UI Transition
+    document.getElementById('calendar-container').style.display = 'none';
+    
+    // 5. Trigger next dialogue
+    typeWriter("Perfect, now let's choose some activities!", 0, () => {
+        setTimeout(() => { 
+            document.getElementById('quest-menu').style.display = 'block'; 
+            // Optional: have the character say something while they pick
+            typeWriter("Pick as many as you like, or leave a note below!");
+        }, 1200);
+    });
+}
 
     function confirmChoice() {
     const val = document.getElementById('emotion-input').value;
