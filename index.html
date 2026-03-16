@@ -254,24 +254,23 @@
     document.getElementById('choice-container').style.display = 'none';
 
     if (val > 50) {
-        // Switches your avatar to the relieved version
+        // 1. Switch to relieved face
         myAvatar.src = "me-relieved.png"; 
-
-        // Switches Joud to her smiling version (matching your GitHub filename)
         joudAvatar.src = "Joud-happy.png"; 
         
-        // Highlights both characters
         joudAvatar.style.filter = "brightness(100%)";
         myAvatar.style.filter = "brightness(100%)";
         
         typeWriter("Phew... I was worried there for a moment! 😅", 0, () => {
             setTimeout(() => {
+                // 2. SWITCH BACK TO NORMAL HERE
+                myAvatar.src = "me-normal.png"; 
+                
                 typeWriter("Please choose a date... or you can leave it to me.");
                 document.getElementById('calendar-container').style.display = 'block';
             }, 1500);
         });
     } else {
-        // Game over logic if she slides to NO
         bgMusic.pause(); 
         overMusic.play();
         document.getElementById('game-over-screen').style.display = 'flex';
