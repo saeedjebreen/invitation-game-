@@ -59,19 +59,87 @@
             z-index: 1;
         }
 
-        .avatar {
-            /* This makes them scale based on screen height so they never overflow */
-            height: 50vh; 
-            width: auto;
-            image-rendering: pixelated;
-            transition: all 0.3s ease;
-            filter: brightness(40%);
-            margin-bottom: 20px;
-        }
+      <style>
+    :root {
+        --stardew-brown: #7d4a27;
+        --stardew-light: #f4d0b0;
+        --stardew-gold: #ffcc00;
+    }
 
-        #my-avatar { margin-left: 5%; }
-        #joud-avatar { margin-right: 5%; transform: scaleX(-1); }
+    body {
+        background: #000 url('background.png') no-repeat center center;
+        background-size: cover;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        height: 100vh;
+        font-family: 'VT323', monospace;
+        overflow: hidden;
+    }
 
+    #game-container {
+        width: 100vw;
+        max-width: 450px;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+    }
+
+    .stage {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    .avatar {
+        /* FIXED SCALE: This ensures they never grow too large for the phone screen */
+        height: 40vh; /* Takes up 40% of the screen height maximum */
+        max-width: 45%; /* Ensures they don't overlap in the middle */
+        width: auto;
+        image-rendering: pixelated;
+        transition: all 0.3s ease;
+        filter: brightness(40%);
+        margin-bottom: 20px;
+        object-fit: contain; /* Prevents stretching */
+    }
+
+    #my-avatar { margin-left: 2%; }
+    #joud-avatar { margin-right: 2%; transform: scaleX(-1); }
+
+    .menu-overlay {
+        display: none;
+        background: rgba(44, 28, 18, 0.98);
+        border: 4px solid var(--stardew-gold);
+        padding: 12px;
+        border-radius: 10px;
+        margin: 10px 15px; /* Keeps them at the very top */
+        z-index: 110;
+        text-align: center;
+        box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    }
+
+    #dialogue-box {
+        position: absolute;
+        bottom: 15px;
+        left: 10px;
+        right: 10px;
+        background: rgba(125, 74, 39, 0.95);
+        border: 4px solid #fff;
+        border-radius: 8px;
+        padding: 12px;
+        min-height: 70px;
+        z-index: 100;
+        box-shadow: 0 6px 0 #000;
+        cursor: pointer;
+    }
         /* Menus anchored to the TOP area */
         .menu-overlay {
             display: none;
