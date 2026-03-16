@@ -24,96 +24,50 @@
         }
 
         #start-screen {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: black;
-            z-index: 1000;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            text-align: center;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: black; z-index: 1000; display: flex;
+            flex-direction: column; align-items: center; justify-content: center;
+            color: white; text-align: center;
         }
 
         #game-container {
-            width: 100vw;
-            max-width: 450px;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            position: relative;
+            width: 100vw; max-width: 450px; height: 100vh;
+            display: flex; flex-direction: column; position: relative;
         }
 
         .stage {
-            position: absolute;
-            bottom: 0; left: 0; width: 100%; height: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
+            position: absolute; bottom: 0; left: 0; width: 100%; height: 100%;
+            display: flex; justify-content: space-between; align-items: flex-end;
             pointer-events: none;
         }
 
         .avatar {
-            height: 42vh; /* Fixed height relative to screen */
-            width: auto;
-            image-rendering: pixelated;
-            transition: all 0.3s ease;
-            filter: brightness(40%);
-            margin-bottom: 25px;
-            object-fit: contain;
+            height: 42vh; width: auto;
+            image-rendering: pixelated; transition: all 0.3s ease;
+            filter: brightness(40%); margin-bottom: 25px; object-fit: contain;
         }
 
-        /* FIX: Push YOU to the front layer */
-        #my-avatar { 
-            margin-left: -5%; 
-            z-index: 5; 
-            position: relative;
-        }
-
-        /* FIX: Push Joud to the back layer */
-        #joud-avatar { 
-            margin-right: -5%; 
-            transform: scaleX(-1); 
-            z-index: 2; 
-            position: relative;
-        }
+        #my-avatar { margin-left: -5%; z-index: 5; position: relative; }
+        #joud-avatar { margin-right: -5%; transform: scaleX(-1); z-index: 2; position: relative; }
 
         .menu-overlay {
-            display: none;
-            background: rgba(44, 28, 18, 0.98);
-            border: 4px solid var(--stardew-gold);
-            padding: 12px;
-            border-radius: 10px;
-            margin: 10px 15px;
-            z-index: 110;
-            text-align: center;
+            display: none; background: rgba(44, 28, 18, 0.98);
+            border: 4px solid var(--stardew-gold); padding: 12px;
+            border-radius: 10px; margin: 10px 15px; z-index: 110; text-align: center;
         }
 
         #dialogue-box {
-            position: absolute;
-            bottom: 15px;
-            left: 10px;
-            right: 10px;
-            background: rgba(125, 74, 39, 0.95);
-            border: 4px solid #fff;
-            border-radius: 8px;
-            padding: 12px;
-            min-height: 70px;
-            z-index: 100;
-            cursor: pointer;
+            position: absolute; bottom: 15px; left: 10px; right: 10px;
+            background: rgba(125, 74, 39, 0.95); border: 4px solid #fff;
+            border-radius: 8px; padding: 12px; min-height: 70px;
+            z-index: 100; cursor: pointer;
         }
 
         .dialogue-text { color: white; font-size: 1.6rem; margin: 0; line-height: 1.1; }
 
         .quest-item {
-            background: var(--stardew-light);
-            border: 2px solid var(--stardew-brown);
-            padding: 8px;
-            color: black;
-            font-size: 1.1rem;
-            cursor: pointer;
-            margin: 2px;
+            background: var(--stardew-light); border: 2px solid var(--stardew-brown);
+            padding: 8px; color: black; font-size: 1.1rem; cursor: pointer; margin: 2px;
         }
 
         #suggestion-box { width: 90%; height: 50px; margin-top: 10px; }
@@ -132,9 +86,8 @@
 <body>
 
 <div id="start-screen">
-    <h1 style="font-size: 3rem; color: var(--stardew-gold); margin-bottom: 0;">QUEST</h1>
-    <h1 style="font-size: 3rem; margin-top: 0;">INVITATION</h1>
-    <button onclick="startGame()" style="background:none; color:white; border: 4px solid white; width: auto; padding: 10px 20px;">[ CLICK TO START ]</button>
+    <h1 style="font-size: 3rem; color: var(--stardew-gold);">QUEST INVITATION</h1>
+    <button onclick="startGame()" style="background:none; color:white; border: 4px solid white; padding: 10px 20px;">[ CLICK TO START ]</button>
 </div>
 
 <audio id="bg-music" loop><source src="theme-music.mp3" type="audio/mpeg"></audio>
@@ -154,13 +107,13 @@
 
     <div id="calendar-container" class="menu-overlay">
         <h3 style="color: white; margin-bottom: 5px;">📅 Select Quest Date</h3>
-        <input type="datetime-local" id="date-input" style="width: 90%; font-family: 'VT323'; font-size: 1.2rem; margin-bottom: 5px;">
+        <input type="datetime-local" id="date-input" style="width: 90%; font-family: 'VT323'; font-size: 1.2rem;">
         <button class="btn-confirm" onclick="confirmDate(false)">Confirm Date</button>
         <button class="btn-gold" onclick="confirmDate(true)">You Choose! 😉</button>
     </div>
 
     <div id="quest-menu" class="menu-overlay">
-        <h3 style="color: white; margin: 0 0 5px 0;">⚔️ SELECT ACTIVITIES</h3>
+        <h3 style="color: white;">⚔️ SELECT ACTIVITIES</h3>
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px;">
             <div class="quest-item" onclick="toggleSelect(this)">☕ Coffee date</div>
             <div class="quest-item" onclick="toggleSelect(this)">🍸 Bar </div>
@@ -169,25 +122,25 @@
             <div class="quest-item" onclick="toggleSelect(this)">🍽️ Dinner</div>
             <div class="quest-item" onclick="toggleSelect(this)">🎳 Bowling</div>
         </div>
-        <textarea id="suggestion-box" placeholder="Any other suggestions?"></textarea>
+        <textarea id="suggestion-box" placeholder="Suggestions?"></textarea>
         <button class="btn-confirm" onclick="finishQuest()">START QUEST!</button>
     </div>
 
     <div id="final-card" class="menu-overlay" style="background:var(--stardew-light); border: 5px solid var(--stardew-brown); color: var(--stardew-brown);">
-        <h2 style="margin:0; border-bottom: 2px dashed var(--stardew-brown);">QUEST REGISTERED!</h2>
+        <h2 style="margin:0;">QUEST REGISTERED!</h2>
         <div id="final-details" style="font-size: 1.3rem; text-align: left; margin: 10px 0;"></div>
-        <p style="font-size: 1.5rem; color: #d32f2f; margin-bottom: 0;">❤️ See you soon, Joud! ❤️</p>
+        <p style="font-size: 1.5rem; color: #d32f2f;">❤️ See you soon, Joud! ❤️</p>
     </div>
 
     <div id="dialogue-box" onclick="nextMessage()">
         <p class="dialogue-text" id="text-target"></p>
-        <div style="text-align:right; font-size: 0.8rem; color: #f4d0b0; margin-top:5px;">[Tap]</div>
+        <div style="text-align:right; font-size: 0.8rem; color: #f4d0b0;">[Tap]</div>
     </div>
 </div>
 
 <div id="game-over-screen">
-    <h1 style="font-size: 4rem;">GAME OVER</h1>
-    <p style="color: white; font-size: 1.5rem;">Thanks for playing anyway, Joud! ❤️</p>
+    <h1>GAME OVER</h1>
+    <p>Thanks for playing anyway! ❤️</p>
 </div>
 
 <script>
@@ -198,7 +151,7 @@
     const overMusic = document.getElementById('over-music');
 
     const script = [
-        { speaker: "me", text: "Hey Joud, I know we only talked twice and this is so sudden..." },
+        { speaker: "me", text: "Hey Joud, I know we only talked twice and this is sudden..." },
         { speaker: "me", text: "But I wanted to catch your attention with something special. I hope you like it!" },
         { speaker: "joud", face: "joud-shocked.png", text: "I know you're probably shocked..." },
         { speaker: "me", text: "Yeah, a friend gave me the advice to be straightforward... so here I am." }
@@ -206,22 +159,12 @@
 
     let idx = 0;
     let isTyping = false;
-    let chosenDate = "";
+    let gamePhase = "intro";
 
     function startGame() {
         document.getElementById('start-screen').style.display = 'none';
         bgMusic.play();
         nextMessage();
-    }
-
-    function toggleSelect(el) {
-        if (el.dataset.selected === "true") {
-            el.style.background = 'var(--stardew-light)';
-            el.dataset.selected = "false";
-        } else {
-            el.style.background = 'var(--stardew-gold)';
-            el.dataset.selected = "true";
-        }
     }
 
     function typeWriter(text, i = 0, callback) {
@@ -234,42 +177,39 @@
 
     function nextMessage() {
         if (isTyping) return;
-        if (idx < script.length) {
-            const line = script[idx];
-            if (line.speaker === "me") {
-                joudAvatar.src = "joud-normal.png"; 
-                myAvatar.style.filter = "brightness(100%)";
-                joudAvatar.style.filter = "brightness(40%)";
+        
+        if (gamePhase === "intro") {
+            if (idx < script.length) {
+                const line = script[idx];
+                if (line.speaker === "me") {
+                    joudAvatar.src = "joud-normal.png";
+                    myAvatar.style.filter = "brightness(100%)";
+                    joudAvatar.style.filter = "brightness(40%)";
+                } else {
+                    joudAvatar.src = line.face;
+                    joudAvatar.style.filter = "brightness(100%)";
+                    myAvatar.style.filter = "brightness(40%)";
+                }
+                typeWriter(line.text);
+                idx++;
             } else {
-                // FIXED CASE SENSITIVITY FOR FILENAMES
-                joudAvatar.src = line.face; 
-                joudAvatar.style.filter = "brightness(100%)";
-                myAvatar.style.filter = "brightness(40%)";
+                gamePhase = "choice";
+                typeWriter("Joud... will you go on a date with me?", 0, () => {
+                    document.getElementById('choice-container').style.display = 'block';
+                });
             }
-            typeWriter(line.text);
-            idx++;
-        } else {
-            // Note logic removed to speed up flow
-            typeWriter("Joud... will you go on a date with me?", 0, () => {
-                document.getElementById('choice-container').style.display = 'block';
-            });
         }
     }
 
     function updateEmotion(val) {
         const btn = document.getElementById('confirm-choice-btn');
-        btn.disabled = false;
-        btn.style.opacity = "1";
+        btn.disabled = false; btn.style.opacity = "1";
         btn.innerText = "CONFIRM SELECTION";
-
-        if (val > 60) {
-            myAvatar.src = "me-happy.png";
-        } else if (val < 40) {
-            myAvatar.src = "me-crying.png";
-        } else {
+        if (val > 60) myAvatar.src = "me-happy.png";
+        else if (val < 40) myAvatar.src = "me-crying.png";
+        else {
             myAvatar.src = "me-normal.png";
-            btn.disabled = true;
-            btn.style.opacity = "0.5";
+            btn.disabled = true; btn.style.opacity = "0.5";
             btn.innerText = "PICK A SIDE";
         }
     }
@@ -278,8 +218,7 @@
         const val = document.getElementById('emotion-input').value;
         document.getElementById('choice-container').style.display = 'none';
         if (val > 50) {
-            // FIXED: Matches your GitHub filename case exactly
-            joudAvatar.src = "Joud-happy.png"; 
+            joudAvatar.src = "Joud-happy.png"; // FIXED CAPITAL J
             joudAvatar.style.filter = "brightness(100%)";
             myAvatar.style.filter = "brightness(100%)";
             typeWriter("Phew... I was worried there for a moment! 😅", 0, () => {
@@ -295,29 +234,31 @@
     }
 
     function confirmDate(isAuto) {
-        chosenDate = isAuto ? "Your choice! 😉" : document.getElementById('date-input').value;
+        let dateVal = isAuto ? "Your choice! 😉" : document.getElementById('date-input').value;
+        window.chosenDate = dateVal;
         document.getElementById('calendar-container').style.display = 'none';
         typeWriter("Perfect, now let's choose some activities!", 0, () => {
-            setTimeout(() => {
-                document.getElementById('quest-menu').style.display = 'block';
-            }, 1000);
+            setTimeout(() => { document.getElementById('quest-menu').style.display = 'block'; }, 1000);
         });
+    }
+
+    function toggleSelect(el) {
+        el.dataset.selected = el.dataset.selected === "true" ? "false" : "true";
+        el.style.background = el.dataset.selected === "true" ? "var(--stardew-gold)" : "var(--stardew-light)";
     }
 
     function finishQuest() {
         const selected = Array.from(document.querySelectorAll('.quest-item'))
             .filter(el => el.dataset.selected === "true")
             .map(el => el.innerText.trim());
-        
         const suggestion = document.getElementById('suggestion-box').value;
         document.getElementById('quest-menu').style.display = 'none';
         
-        let summary = `<b>📅 DATE:</b> ${chosenDate}<br><b>⚔️ ACTIVITIES:</b> ${selected.length > 0 ? selected.join(", ") : "Surprise me!"}`;
+        let summary = `<b>📅 DATE:</b> ${window.chosenDate}<br><b>⚔️ ACTIVITIES:</b> ${selected.length > 0 ? selected.join(", ") : "Surprise me!"}`;
         if(suggestion) summary += `<br><b>✉️ NOTE:</b> ${suggestion}`;
         
         document.getElementById('final-details').innerHTML = summary;
         document.getElementById('final-card').style.display = 'block';
-        
         typeWriter("I've saved the quest details! I'll see you then.");
     }
 </script>
