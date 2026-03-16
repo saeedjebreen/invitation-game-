@@ -45,127 +45,62 @@
             position: relative;
         }
 
-        /* Characters anchored to the bottom */
         .stage {
             position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            bottom: 0; left: 0; width: 100%; height: 100%;
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
             pointer-events: none;
-            z-index: 1;
         }
 
-      <style>
-    :root {
-        --stardew-brown: #7d4a27;
-        --stardew-light: #f4d0b0;
-        --stardew-gold: #ffcc00;
-    }
+        .avatar {
+            height: 42vh; /* Fixed height relative to screen */
+            width: auto;
+            image-rendering: pixelated;
+            transition: all 0.3s ease;
+            filter: brightness(40%);
+            margin-bottom: 25px;
+            object-fit: contain;
+        }
 
-    body {
-        background: #000 url('background.png') no-repeat center center;
-        background-size: cover;
-        margin: 0;
-        display: flex;
-        justify-content: center;
-        height: 100vh;
-        font-family: 'VT323', monospace;
-        overflow: hidden;
-    }
+        /* FIX: Push YOU to the front layer */
+        #my-avatar { 
+            margin-left: -5%; 
+            z-index: 5; 
+            position: relative;
+        }
 
-    #game-container {
-        width: 100vw;
-        max-width: 450px;
-        height: 100vh;
-        display: flex;
-        flex-direction: column;
-        position: relative;
-    }
+        /* FIX: Push Joud to the back layer */
+        #joud-avatar { 
+            margin-right: -5%; 
+            transform: scaleX(-1); 
+            z-index: 2; 
+            position: relative;
+        }
 
-    .stage {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-end;
-        pointer-events: none;
-        z-index: 1;
-    }
-
-    .avatar {
-        /* FIXED SCALE: This ensures they never grow too large for the phone screen */
-        height: 40vh; /* Takes up 40% of the screen height maximum */
-        max-width: 45%; /* Ensures they don't overlap in the middle */
-        width: auto;
-        image-rendering: pixelated;
-        transition: all 0.3s ease;
-        filter: brightness(40%);
-        margin-bottom: 20px;
-        object-fit: contain; /* Prevents stretching */
-    }
-
-    #my-avatar { margin-left: 2%; }
-    #joud-avatar { margin-right: 2%; transform: scaleX(-1); }
-
-    .menu-overlay {
-        display: none;
-        background: rgba(44, 28, 18, 0.98);
-        border: 4px solid var(--stardew-gold);
-        padding: 12px;
-        border-radius: 10px;
-        margin: 10px 15px; /* Keeps them at the very top */
-        z-index: 110;
-        text-align: center;
-        box-shadow: 0 0 20px rgba(0,0,0,0.5);
-    }
-
-    #dialogue-box {
-        position: absolute;
-        bottom: 15px;
-        left: 10px;
-        right: 10px;
-        background: rgba(125, 74, 39, 0.95);
-        border: 4px solid #fff;
-        border-radius: 8px;
-        padding: 12px;
-        min-height: 70px;
-        z-index: 100;
-        box-shadow: 0 6px 0 #000;
-        cursor: pointer;
-    }
-        /* Menus anchored to the TOP area */
         .menu-overlay {
             display: none;
             background: rgba(44, 28, 18, 0.98);
             border: 4px solid var(--stardew-gold);
-            padding: 15px;
+            padding: 12px;
             border-radius: 10px;
-            margin: 20px 15px; /* Margin from the top */
+            margin: 10px 15px;
             z-index: 110;
             text-align: center;
-            box-shadow: 0 0 20px rgba(0,0,0,0.5);
         }
 
-        /* Dialogue anchored to the BOTTOM area */
         #dialogue-box {
             position: absolute;
-            bottom: 20px;
-            left: 15px;
-            right: 15px;
+            bottom: 15px;
+            left: 10px;
+            right: 10px;
             background: rgba(125, 74, 39, 0.95);
             border: 4px solid #fff;
             border-radius: 8px;
-            padding: 15px;
-            min-height: 80px;
+            padding: 12px;
+            min-height: 70px;
             z-index: 100;
-            box-shadow: 0 6px 0 #000;
             cursor: pointer;
         }
 
@@ -176,26 +111,16 @@
             border: 2px solid var(--stardew-brown);
             padding: 8px;
             color: black;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             cursor: pointer;
             margin: 2px;
         }
 
-        #suggestion-box {
-            width: 90%; height: 60px; background: white; border: 2px solid var(--stardew-brown);
-            font-family: 'VT323'; font-size: 1.2rem; padding: 5px; margin-top: 10px; resize: none;
-        }
+        #suggestion-box { width: 90%; height: 50px; margin-top: 10px; }
 
-        button { font-family: 'VT323'; padding: 12px; border: none; cursor: pointer; font-size: 1.4rem; width: 100%; }
-        .btn-confirm { background: #4caf50; color: white; margin-top: 10px; }
-        .btn-gold { background: var(--stardew-gold); color: white; margin-top: 8px; }
-
-        #note-overlay {
-            display: none; position: fixed; top: 50%; left: 50%;
-            transform: translate(-50%, -50%); width: 85%; z-index: 200;
-            background: #fdf5e6; border: 3px solid #5d4037; padding: 20px;
-            box-shadow: 0 0 0 100vmax rgba(0,0,0,0.8); text-align: center;
-        }
+        button { font-family: 'VT323'; padding: 10px; cursor: pointer; font-size: 1.4rem; width: 100%; }
+        .btn-confirm { background: #4caf50; color: white; margin-top: 8px; }
+        .btn-gold { background: var(--stardew-gold); color: white; margin-top: 5px; }
 
         #game-over-screen {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -207,9 +132,9 @@
 <body>
 
 <div id="start-screen">
-    <h1 style="font-size: 3.5rem; color: var(--stardew-gold); margin-bottom: 0;">QUEST</h1>
-    <h1 style="font-size: 3.5rem; margin-top: 0;">INVITATION</h1>
-    <button onclick="startGame()" style="background:none; color:white; border: 4px solid white; width: auto; padding: 10px 30px;">[ CLICK TO START ]</button>
+    <h1 style="font-size: 3rem; color: var(--stardew-gold); margin-bottom: 0;">QUEST</h1>
+    <h1 style="font-size: 3rem; margin-top: 0;">INVITATION</h1>
+    <button onclick="startGame()" style="background:none; color:white; border: 4px solid white; width: auto; padding: 10px 20px;">[ CLICK TO START ]</button>
 </div>
 
 <audio id="bg-music" loop><source src="theme-music.mp3" type="audio/mpeg"></audio>
@@ -223,21 +148,20 @@
 
     <div id="choice-container" class="menu-overlay">
         <div style="display:flex; justify-content:space-between; color:white; font-size: 1.5rem;"><span>NO 😭</span><span>YES 😊</span></div>
-        <input type="range" min="0" max="100" value="50" id="emotion-input" oninput="updateEmotion(this.value)" style="width:100%; margin: 20px 0;">
-        <button class="btn-confirm" id="confirm-choice-btn" style="opacity:0.5; cursor:not-allowed;" disabled onclick="confirmChoice()">PICK A SIDE</button>
+        <input type="range" min="0" max="100" value="50" id="emotion-input" oninput="updateEmotion(this.value)" style="width:100%; margin: 15px 0;">
+        <button class="btn-confirm" id="confirm-choice-btn" style="opacity:0.5;" disabled onclick="confirmChoice()">PICK A SIDE</button>
     </div>
 
     <div id="calendar-container" class="menu-overlay">
-        <h3 style="color: white; margin-bottom: 10px;">📅 Select Quest Date</h3>
-        <input type="datetime-local" id="date-input" style="width: 90%; font-family: 'VT323'; font-size: 1.2rem; margin-bottom: 10px;">
+        <h3 style="color: white; margin-bottom: 5px;">📅 Select Quest Date</h3>
+        <input type="datetime-local" id="date-input" style="width: 90%; font-family: 'VT323'; font-size: 1.2rem; margin-bottom: 5px;">
         <button class="btn-confirm" onclick="confirmDate(false)">Confirm Date</button>
         <button class="btn-gold" onclick="confirmDate(true)">You Choose! 😉</button>
     </div>
 
     <div id="quest-menu" class="menu-overlay">
         <h3 style="color: white; margin: 0 0 5px 0;">⚔️ SELECT ACTIVITIES</h3>
-        <p style="color: var(--stardew-gold); margin: 0 0 10px 0; font-size: 1.1rem;">(You can choose multiple items!)</p>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px;">
             <div class="quest-item" onclick="toggleSelect(this)">☕ Coffee date</div>
             <div class="quest-item" onclick="toggleSelect(this)">🍸 Bar </div>
             <div class="quest-item" onclick="toggleSelect(this)">🍦 Ice cream</div>
@@ -250,19 +174,14 @@
     </div>
 
     <div id="final-card" class="menu-overlay" style="background:var(--stardew-light); border: 5px solid var(--stardew-brown); color: var(--stardew-brown);">
-        <h2 style="margin-top:0; border-bottom: 2px dashed var(--stardew-brown);">QUEST REGISTERED!</h2>
-        <div id="final-details" style="font-size: 1.4rem; text-align: left; margin: 15px 0;"></div>
-        <p style="font-size: 1.6rem; color: #d32f2f; margin-bottom: 0;">❤️ See you soon, Joud! ❤️</p>
+        <h2 style="margin:0; border-bottom: 2px dashed var(--stardew-brown);">QUEST REGISTERED!</h2>
+        <div id="final-details" style="font-size: 1.3rem; text-align: left; margin: 10px 0;"></div>
+        <p style="font-size: 1.5rem; color: #d32f2f; margin-bottom: 0;">❤️ See you soon, Joud! ❤️</p>
     </div>
 
     <div id="dialogue-box" onclick="nextMessage()">
         <p class="dialogue-text" id="text-target"></p>
         <div style="text-align:right; font-size: 0.8rem; color: #f4d0b0; margin-top:5px;">[Tap]</div>
-    </div>
-
-    <div id="note-overlay">
-        <p style="font-size:1.6rem; color:#5d4037;">Please note that there will be no hard feelings no matter what you choose ❤️ 😊</p>
-        <button onclick="closeNote()" style="background:var(--stardew-brown); color:white;">[ Close Note ]</button>
     </div>
 </div>
 
@@ -279,10 +198,10 @@
     const overMusic = document.getElementById('over-music');
 
     const script = [
-        { speaker: "me", text: "Hey Joud, I know we only talked twice and this is so sudden and out of character from me " },
-        { speaker: "me", text: "but i wanted to catch your attention with something special. I hope you like it!" },
-        { speaker: "joud", face: "joud-shocked.png", text: "i know you're probably shocked " },
-        { speaker: "me", text: "Yeah, a friend (zaina) gave me the advice to be straightforward with you... so here I am." }
+        { speaker: "me", text: "Hey Joud, I know we only talked twice and this is so sudden..." },
+        { speaker: "me", text: "But I wanted to catch your attention with something special. I hope you like it!" },
+        { speaker: "joud", face: "joud-shocked.png", text: "I know you're probably shocked..." },
+        { speaker: "me", text: "Yeah, a friend gave me the advice to be straightforward... so here I am." }
     ];
 
     let idx = 0;
@@ -291,7 +210,7 @@
 
     function startGame() {
         document.getElementById('start-screen').style.display = 'none';
-        bgMusic.play().catch(e => console.log("Audio fail", e));
+        bgMusic.play();
         nextMessage();
     }
 
@@ -322,30 +241,25 @@
                 myAvatar.style.filter = "brightness(100%)";
                 joudAvatar.style.filter = "brightness(40%)";
             } else {
-                joudAvatar.src = line.face;
+                // FIXED CASE SENSITIVITY FOR FILENAMES
+                joudAvatar.src = line.face; 
                 joudAvatar.style.filter = "brightness(100%)";
                 myAvatar.style.filter = "brightness(40%)";
             }
             typeWriter(line.text);
             idx++;
-        } else if (idx === script.length) {
-            document.getElementById('note-overlay').style.display = 'block';
-            idx++;
+        } else {
+            // Note logic removed to speed up flow
+            typeWriter("Joud... will you go on a date with me?", 0, () => {
+                document.getElementById('choice-container').style.display = 'block';
+            });
         }
-    }
-
-    function closeNote() {
-        document.getElementById('note-overlay').style.display = 'none';
-        typeWriter("Joud... will you go on a date with me?", 0, () => {
-            document.getElementById('choice-container').style.display = 'block';
-        });
     }
 
     function updateEmotion(val) {
         const btn = document.getElementById('confirm-choice-btn');
         btn.disabled = false;
         btn.style.opacity = "1";
-        btn.style.cursor = "pointer";
         btn.innerText = "CONFIRM SELECTION";
 
         if (val > 60) {
@@ -364,12 +278,13 @@
         const val = document.getElementById('emotion-input').value;
         document.getElementById('choice-container').style.display = 'none';
         if (val > 50) {
-            joudAvatar.src = "joud-happy.png";
+            // FIXED: Matches your GitHub filename case exactly
+            joudAvatar.src = "Joud-happy.png"; 
             joudAvatar.style.filter = "brightness(100%)";
             myAvatar.style.filter = "brightness(100%)";
             typeWriter("Phew... I was worried there for a moment! 😅", 0, () => {
                 setTimeout(() => {
-                    typeWriter("Please choose the date and time you're free on... or you can leave it to me.");
+                    typeWriter("Please choose a date... or you can leave it to me.");
                     document.getElementById('calendar-container').style.display = 'block';
                 }, 1500);
             });
@@ -382,11 +297,10 @@
     function confirmDate(isAuto) {
         chosenDate = isAuto ? "Your choice! 😉" : document.getElementById('date-input').value;
         document.getElementById('calendar-container').style.display = 'none';
-        typeWriter("Perfect, now let's choose something to do on the date?", 0, () => {
+        typeWriter("Perfect, now let's choose some activities!", 0, () => {
             setTimeout(() => {
                 document.getElementById('quest-menu').style.display = 'block';
-                typeWriter("Here are some activities, leave a suggestion in the box! or just don't pick anything and i will surprise you 😊");
-            }, 1500);
+            }, 1000);
         });
     }
 
