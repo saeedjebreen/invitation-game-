@@ -54,20 +54,39 @@
             z-index: 1;
         }
 
-        .avatar {
-            position: absolute;
-            /* FIX: Fixed height so Joud doesn't look massive */
-            height: 380px; 
-            width: auto;
-            bottom: 80px; 
-            image-rendering: pixelated;
-            transition: all 0.3s ease;
-            filter: brightness(40%);
-        }
+      .avatar {
+        position: absolute;
+        /* 1. This forces them to be the EXACT same size regardless of file resolution */
+        height: 380px; 
+        width: auto;
+        bottom: 70px; /* Adjust this to sit perfectly on the bar floor */
+        image-rendering: pixelated;
+        transition: all 0.3s ease;
+        filter: brightness(40%);
+    }
 
-        /* Spacing them out to prevent overlap */
-        #my-avatar { left: 5%; }
-        #joud-avatar { right: 5%; transform: scaleX(-1); }
+    /* 2. Position you on the left and Joud on the right with no overlap */
+    #my-avatar {
+        left: 5%; 
+    }
+
+    #joud-avatar {
+        right: 5%;
+        transform: scaleX(-1);
+    }
+
+    /* 3. Ensure the UI doesn't cover your faces */
+    #choice-container, #calendar-container, #quest-menu, #final-card {
+        display: none;
+        background: rgba(44, 28, 18, 0.98);
+        border: 4px solid var(--stardew-gold);
+        padding: 15px;
+        border-radius: 10px;
+        margin: 0 15px 420px 15px; /* Keeps the boxes near the top of the phone */
+        z-index: 110;
+        text-align: center;
+        box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    }
 
         #dialogue-box {
             background: rgba(125, 74, 39, 0.95);
