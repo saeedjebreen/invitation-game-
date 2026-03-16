@@ -18,7 +18,6 @@
             margin: 0;
             display: flex;
             justify-content: center;
-            align-items: center;
             height: 100vh;
             font-family: 'VT323', monospace;
             overflow: hidden;
@@ -43,77 +42,66 @@
             height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: flex-end;
             position: relative;
         }
 
+        /* Characters anchored to the bottom */
         .stage {
             position: absolute;
-            bottom: 0; left: 0; width: 100%; height: 100%;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
             pointer-events: none;
             z-index: 1;
         }
 
-      .avatar {
-        position: absolute;
-        /* 1. This forces them to be the EXACT same size regardless of file resolution */
-        height: 380px; 
-        width: auto;
-        bottom: 70px; /* Adjust this to sit perfectly on the bar floor */
-        image-rendering: pixelated;
-        transition: all 0.3s ease;
-        filter: brightness(40%);
-    }
-
-    /* 2. Position you on the left and Joud on the right with no overlap */
-    #my-avatar {
-        left: 5%; 
-    }
-
-    #joud-avatar {
-        right: 5%;
-        transform: scaleX(-1);
-    }
-
-    /* 3. Ensure the UI doesn't cover your faces */
-    #choice-container, #calendar-container, #quest-menu, #final-card {
-        display: none;
-        background: rgba(44, 28, 18, 0.98);
-        border: 4px solid var(--stardew-gold);
-        padding: 15px;
-        border-radius: 10px;
-        margin: 0 15px 420px 15px; /* Keeps the boxes near the top of the phone */
-        z-index: 110;
-        text-align: center;
-        box-shadow: 0 0 20px rgba(0,0,0,0.5);
-    }
-
-        #dialogue-box {
-            background: rgba(125, 74, 39, 0.95);
-            border: 4px solid #fff;
-            border-radius: 8px;
-            padding: 15px;
-            min-height: 85px;
-            z-index: 100;
-            margin: 0 15px 25px 15px;
-            box-shadow: 0 6px 0 #000;
-            cursor: pointer;
+        .avatar {
+            /* This makes them scale based on screen height so they never overflow */
+            height: 50vh; 
+            width: auto;
+            image-rendering: pixelated;
+            transition: all 0.3s ease;
+            filter: brightness(40%);
+            margin-bottom: 20px;
         }
 
-        .dialogue-text { color: white; font-size: 1.6rem; margin: 0; line-height: 1.1; }
+        #my-avatar { margin-left: 5%; }
+        #joud-avatar { margin-right: 5%; transform: scaleX(-1); }
 
-        #choice-container, #calendar-container, #quest-menu, #final-card {
+        /* Menus anchored to the TOP area */
+        .menu-overlay {
             display: none;
             background: rgba(44, 28, 18, 0.98);
             border: 4px solid var(--stardew-gold);
             padding: 15px;
             border-radius: 10px;
-            /* FIX: High margin to float boxes at the top and clear faces */
-            margin: 0 15px 420px 15px; 
+            margin: 20px 15px; /* Margin from the top */
             z-index: 110;
             text-align: center;
             box-shadow: 0 0 20px rgba(0,0,0,0.5);
         }
+
+        /* Dialogue anchored to the BOTTOM area */
+        #dialogue-box {
+            position: absolute;
+            bottom: 20px;
+            left: 15px;
+            right: 15px;
+            background: rgba(125, 74, 39, 0.95);
+            border: 4px solid #fff;
+            border-radius: 8px;
+            padding: 15px;
+            min-height: 80px;
+            z-index: 100;
+            box-shadow: 0 6px 0 #000;
+            cursor: pointer;
+        }
+
+        .dialogue-text { color: white; font-size: 1.6rem; margin: 0; line-height: 1.1; }
 
         .quest-item {
             background: var(--stardew-light);
@@ -135,7 +123,7 @@
         .btn-gold { background: var(--stardew-gold); color: white; margin-top: 8px; }
 
         #note-overlay {
-            display: none; position: absolute; top: 50%; left: 50%;
+            display: none; position: fixed; top: 50%; left: 50%;
             transform: translate(-50%, -50%); width: 85%; z-index: 200;
             background: #fdf5e6; border: 3px solid #5d4037; padding: 20px;
             box-shadow: 0 0 0 100vmax rgba(0,0,0,0.8); text-align: center;
@@ -165,21 +153,21 @@
         <img src="joud-normal.png" class="avatar" id="joud-avatar">
     </div>
 
-    <div id="choice-container">
+    <div id="choice-container" class="menu-overlay">
         <div style="display:flex; justify-content:space-between; color:white; font-size: 1.5rem;"><span>NO 😭</span><span>YES 😊</span></div>
         <input type="range" min="0" max="100" value="50" id="emotion-input" oninput="updateEmotion(this.value)" style="width:100%; margin: 20px 0;">
         <button class="btn-confirm" id="confirm-choice-btn" style="opacity:0.5; cursor:not-allowed;" disabled onclick="confirmChoice()">PICK A SIDE</button>
     </div>
 
-    <div id="calendar-container">
+    <div id="calendar-container" class="menu-overlay">
         <h3 style="color: white; margin-bottom: 10px;">📅 Select Quest Date</h3>
         <input type="datetime-local" id="date-input" style="width: 90%; font-family: 'VT323'; font-size: 1.2rem; margin-bottom: 10px;">
         <button class="btn-confirm" onclick="confirmDate(false)">Confirm Date</button>
         <button class="btn-gold" onclick="confirmDate(true)">You Choose! 😉</button>
     </div>
 
-    <div id="quest-menu">
-        <h3 style="color: white; margin: 0 0 5px 0;">⚔️ SELECT YOUR ACTIVITIES</h3>
+    <div id="quest-menu" class="menu-overlay">
+        <h3 style="color: white; margin: 0 0 5px 0;">⚔️ SELECT ACTIVITIES</h3>
         <p style="color: var(--stardew-gold); margin: 0 0 10px 0; font-size: 1.1rem;">(You can choose multiple items!)</p>
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
             <div class="quest-item" onclick="toggleSelect(this)">☕ Coffee date</div>
@@ -193,7 +181,7 @@
         <button class="btn-confirm" onclick="finishQuest()">START QUEST!</button>
     </div>
 
-    <div id="final-card" style="background:var(--stardew-light); border: 5px solid var(--stardew-brown); color: var(--stardew-brown);">
+    <div id="final-card" class="menu-overlay" style="background:var(--stardew-light); border: 5px solid var(--stardew-brown); color: var(--stardew-brown);">
         <h2 style="margin-top:0; border-bottom: 2px dashed var(--stardew-brown);">QUEST REGISTERED!</h2>
         <div id="final-details" style="font-size: 1.4rem; text-align: left; margin: 15px 0;"></div>
         <p style="font-size: 1.6rem; color: #d32f2f; margin-bottom: 0;">❤️ See you soon, Joud! ❤️</p>
